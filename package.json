@@ -39,7 +39,6 @@
         "test": "npm run unit && npm run e2e"
     },
     "dependencies": {
-        "axios": "^0.15.3",
         "devour-client": "^1.4.3"
     },
     "devDependencies": {
