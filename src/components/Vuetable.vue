@@ -108,7 +108,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import JsonApi from 'devour-client'
 
 export default {
   props: {
@@ -236,6 +236,14 @@ export default {
     silent: {
       type: Boolean,
       default: false
+    },
+    jsonApi: {
+      type: Object,
+      default: null
+    },
+    jsonApiModelName: {
+      type: String,
+      default: null
     }
   },
   data () {
@@ -372,7 +380,7 @@ export default {
 
       this.httpOptions['params'] = this.getAllQueryParams()
 
-      axios.get(this.apiUrl, this.httpOptions).then(
+      this.jsonApi.findAll(this.jsonApiModelName).then(
         success,
         failed
       )
@@ -380,7 +388,7 @@ export default {
     loadSuccess (response) {
       this.fireEvent('load-success', response)
 
-      let body = this.transform(response.data)
+      let body = this.transform(response)
 
       this.tableData = this.getObjectValue(body, this.dataPath, null)
       this.tablePagination = this.getObjectValue(body, this.paginationPath, null)
